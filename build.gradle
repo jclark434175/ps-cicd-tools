@@ -1,0 +1,27 @@
+ext {
+    package_vendor = "Checkmarx"
+    package_version = "0.0.0"
+}
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation "junit:junit:4.13.2"
+        implementation 'org.slf4j:slf4j-nop:2.0.13'
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    compileJava {
+        options.compilerArgs << '-Xlint:deprecation'
+    }
+}
+

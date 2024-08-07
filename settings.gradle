@@ -1,0 +1,3 @@
+rootProject.name = 'cicd-tools'
+include 'cxflow-downloader', 'download-tool', 'archive-downloader'
+

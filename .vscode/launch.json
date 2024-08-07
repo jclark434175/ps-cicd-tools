@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Remote Debug cxflow-download",
+            "request": "attach",
+            "port": 32768,
+            "hostName": "localhost",
+            "sourcePaths": ["${workspaceFolder}/cxflow-download/src/main/java", 
+            "${workspaceFolder}/archive-downloader/src/main/java", "${workspaceFolder}/download-tool/src/main/java"]
+        }
+    ]
+}
