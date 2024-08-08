@@ -3,11 +3,8 @@ package com.checkmarxts.cicd.expanders;
 import java.nio.file.Path;
 import java.io.InputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
-
-import com.checkmarxts.cicd.utils.PermissionUtils;
-
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-
+import com.checkmarxts.cicd.utils.PermissionUtils;
 
 public class TgzExpandWriter extends BaseExpandWriter {
 
@@ -32,7 +29,6 @@ public class TgzExpandWriter extends BaseExpandWriter {
                 try(var tar = new TarArchiveInputStream(gz) )
                 {
                     
-                    // https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
                     for (var entry = tar.getNextEntry() ; entry != null; entry = tar.getNextEntry() )
                     {
                         var curpath = Path.of(getDest().toString(), entry.getName());
