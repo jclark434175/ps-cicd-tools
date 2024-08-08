@@ -23,20 +23,20 @@ public class ArchiveDownload {
 
     private static Options getOptions()
     {
-
         Options opts = new Options();
-        opts.addOption("?", "help", false, "Request this help output.");
+
+        opts.addOption(Option.builder("?").longOpt("help").required(false).hasArg(false)
+            .desc("Request this help output.").build());
 
         opts.addOption(Option.builder("p").hasArg().desc("Path prefix to use when creating a temporary directory.").
             longOpt("prefix").required(false).build());
         
-        opts.addOption(Option.builder("u").hasArg().desc("Url for the file to download.").
-            longOpt("url").required().build());
+        opts.addOption(Option.builder("u").hasArg().desc("Url for the file to download.").longOpt("url").required().build());
         
         opts.addOption(Option.builder("f").hasArg().desc("Output filename (ignored if expanding the downloaded archive).").
             longOpt("filename").required(false).build());
 
-
+            
         OptionGroup output_path_opts = new OptionGroup();
 
         output_path_opts.addOption(Option.builder("t").hasArg(false).desc("Write output to a temporary directory.").
@@ -50,7 +50,7 @@ public class ArchiveDownload {
 
         OptionGroup expand_opts = new OptionGroup();
 
-        expand_opts.addOption(Option.builder(null).hasArg(false).desc("Unzip the downloaded file in the destination directory.").
+        expand_opts.addOption(Option.builder().hasArg(false).desc("Unzip the downloaded file in the destination directory.").
             longOpt("unzip").required(false).build());
 
         opts.addOptionGroup(expand_opts);
@@ -58,26 +58,24 @@ public class ArchiveDownload {
         return opts;
     }
 
+    private static void showHelp(Options opts)
+    {
+        var help = new HelpFormatter();
+        help.printHelp("java -jar archive-downloader.jar", "Downloads an archive (or file) at the provided URL, optionally expanding the archive.", 
+            opts, "At exit, the path to the downloaded artifacts is emitted on stdout.", true);
+    }
+
 
     public static void main(String[] args) throws Exception {
-
+        var options = getOptions();
 
         try
         {
-            var options = getOptions();
             var cmd_line = new DefaultParser().parse(options, args);
-
-            if (cmd_line.getOptions().length == 0)
-            {
-                System.out.println("No options provided.  Run with '-?' to print option help.");
-                System.exit(1);
-            }
 
             if (cmd_line.hasOption("?"))
             {
-                var help = new HelpFormatter();
-                help.printHelp("java -jar archive-downloader.jar", "Downloads an archive (or file) at the provided URL, optionally expanding the archive.", 
-                    options, "At exit, the path to the downloaded artifacts is emitted on stdout.", true);
+                showHelp(options);
                 System.exit(0);
             }
 
@@ -141,7 +139,9 @@ public class ArchiveDownload {
         }
         catch (ParseException pex)
         {
+
             System.err.println("ERROR: " + pex.getMessage());
+            showHelp(options);
             System.exit(-1);
 
         }
