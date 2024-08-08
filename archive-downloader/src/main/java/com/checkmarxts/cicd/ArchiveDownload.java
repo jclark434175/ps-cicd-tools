@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import java.net.URL;
 import java.net.MalformedURLException;
 import com.checkmarxts.cicd.expanders.ZipExpandWriter;
+import com.checkmarxts.cicd.expanders.TgzExpandWriter;
 import com.checkmarxts.cicd.expanders.NoExpandWriter;
 import com.checkmarxts.cicd.expanders.IExpandedWriter;
 import com.checkmarxts.cicd.utils.PathUtil;
@@ -52,6 +53,9 @@ public class ArchiveDownload {
 
         expand_opts.addOption(Option.builder().hasArg(false).desc("Unzip the downloaded file in the destination directory.").
             longOpt("unzip").required(false).build());
+
+        expand_opts.addOption(Option.builder().hasArg(false).desc("Expand the downloaded gzipped tar file in the destination directory.").
+            longOpt("untgz").required(false).build());
 
         opts.addOptionGroup(expand_opts);
 
@@ -120,6 +124,11 @@ public class ArchiveDownload {
                 stdout_path = outdir;
                 outwriter_factory = () -> new ZipExpandWriter();
             }
+            else if (cmd_line.hasOption("untgz"))
+            {
+                stdout_path = outdir;
+                outwriter_factory = () -> new TgzExpandWriter();
+            }
             else
             {
                 stdout_path = Path.of(outdir.toString(), dest_filename);
@@ -135,7 +144,7 @@ public class ArchiveDownload {
                 }
             }
 
-            System.out.println(stdout_path.toString());
+            System.out.println(stdout_path.toAbsolutePath().toString());
         }
         catch (ParseException pex)
         {

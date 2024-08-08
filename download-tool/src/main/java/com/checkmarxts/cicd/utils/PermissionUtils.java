@@ -1,6 +1,7 @@
 package com.checkmarxts.cicd.utils;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.nio.file.attribute.PosixFilePermission;
 
 
@@ -20,22 +21,22 @@ public class PermissionUtils {
         return retval;
     }
 
-    private static HashSet<PosixFilePermission> getUserSet(int user_mode)
+    private static Set<PosixFilePermission> getUserSet(int user_mode)
     {
         return getSet(user_mode, PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE, PosixFilePermission.OWNER_EXECUTE);
     }
 
-    private static HashSet<PosixFilePermission> getGroupSet(int group_mode)
+    private static Set<PosixFilePermission> getGroupSet(int group_mode)
     {
         return getSet(group_mode, PosixFilePermission.GROUP_READ, PosixFilePermission.GROUP_WRITE, PosixFilePermission.GROUP_EXECUTE);
     }
 
-    private static HashSet<PosixFilePermission> getOtherSet(int other_mode)
+    private static Set<PosixFilePermission> getOtherSet(int other_mode)
     {
         return getSet(other_mode, PosixFilePermission.OTHERS_READ, PosixFilePermission.OTHERS_WRITE, PosixFilePermission.OTHERS_EXECUTE);
     }
 
-    public static HashSet<PosixFilePermission> translateUnixMode(int all_mode)
+    public static Set<PosixFilePermission> translateUnixMode(int all_mode)
     {
         HashSet<PosixFilePermission> retval = new HashSet<PosixFilePermission>();
         retval.addAll(getOtherSet(all_mode & 0x7));

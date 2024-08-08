@@ -42,26 +42,9 @@ public class ZipExpandWriter extends BaseExpandWriter {
                     var curpath = Path.of(getDest().toString(), entry.getName());
 
                     if (entry.isDirectory())
-                    {
-                        try 
-                        {
-                            PathUtil.createAndValidateDir(curpath);
-                        }
-                        catch(Exception ex)
-                        {
-                            throw new ExpandException(ex, entry.getName());
-                        }
-                    }
+                        expandDir(curpath, mode);
                     else
-                    {
-                        Files.deleteIfExists(curpath);
-                        try(var destfile = new FileOutputStream(curpath.toString()) )
-                        {
-                            IOUtils.copy(zip.getInputStream(entry), destfile);
-                        }
-
-                        Files.setPosixFilePermissions(curpath, mode);
-                    }
+                        expandFile(zip.getInputStream(entry), curpath, mode);
                 }
 
             }
