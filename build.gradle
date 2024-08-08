@@ -1,7 +1,18 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+
 ext {
     package_vendor = "Checkmarx"
     package_version = "0.0.0"
 }
+
+
 subprojects {
     apply plugin: 'java'
 
@@ -23,5 +34,12 @@ subprojects {
     compileJava {
         options.compilerArgs << '-Xlint:deprecation'
     }
+}
+
+
+dependencies {
+    implementation project(":cxflow-downloader")
+    implementation project(":archive-downloader")
+    implementation project(":download-tool")
 }
 
