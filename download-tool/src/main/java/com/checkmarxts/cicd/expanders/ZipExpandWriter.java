@@ -1,12 +1,15 @@
 package com.checkmarxts.cicd.expanders;
 import java.nio.file.Path;
+import java.nio.file.Files;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.util.zip.ZipInputStream;
-import java.io.IOException;
-import java.nio.file.InvalidPathException;
 import com.checkmarxts.cicd.utils.PathUtil;
+import com.checkmarxts.cicd.utils.PermissionUtils;
 import org.apache.commons.io.IOUtils;
+
+import org.apache.commons.compress.archivers.zip.ZipFile;
+
 
 public class ZipExpandWriter extends BaseExpandWriter {
 
@@ -27,11 +30,15 @@ public class ZipExpandWriter extends BaseExpandWriter {
     {
         try
         {
-            try(var zip = new ZipInputStream(src))
+            try(var zip = ZipFile.builder().setByteArray(src.readAllBytes()).get())
             {
 
-                for (var entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry())
+                for (var entries = zip.getEntries(); entries.hasMoreElements(); )
                 {
+                    var entry = entries.nextElement();
+                    
+                    var mode = PermissionUtils.translateUnixMode(entry.getUnixMode());
+
                     var curpath = Path.of(getDest().toString(), entry.getName());
 
                     if (entry.isDirectory())
@@ -47,12 +54,14 @@ public class ZipExpandWriter extends BaseExpandWriter {
                     }
                     else
                     {
+                        Files.deleteIfExists(curpath);
                         try(var destfile = new FileOutputStream(curpath.toString()) )
                         {
-                            IOUtils.copy(zip, destfile);
+                            IOUtils.copy(zip.getInputStream(entry), destfile);
                         }
+
+                        Files.setPosixFilePermissions(curpath, mode);
                     }
-                    zip.closeEntry();
                 }
 
             }
