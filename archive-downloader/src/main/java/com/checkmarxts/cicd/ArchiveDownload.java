@@ -34,6 +34,10 @@ public class ArchiveDownload {
         .desc("Automatically download and expand the SCA Resolver archive appropriate for the current OS")
         .longOpt("resolver").build();
 
+    private static Option _cxonecli = Option.builder().hasArg(false)
+        .desc("Automatically download and expand the Checkmarx One CLI archive appropriate for the current OS")
+        .longOpt("cxonecli").build();
+
     private static Option _temp = Option.builder("t").hasArg().desc("Write output to a temporary directory using the provided path as a prefix").
         longOpt("temp").build();
 
@@ -64,6 +68,7 @@ public class ArchiveDownload {
         dl_src_group.setRequired(true);
         dl_src_group.addOption(_url);
         dl_src_group.addOption(_resolver);
+        dl_src_group.addOption(_cxonecli);
         _all_options.addOptionGroup(dl_src_group);
 
         var output_path_group = new OptionGroup();
@@ -78,8 +83,6 @@ public class ArchiveDownload {
         expand_group.addOption(_unzip);
         expand_group.addOption(_untgz);
         _all_options.addOptionGroup(expand_group);
-
-
     }
 
     private static void showHelp(Options opts)
@@ -121,16 +124,19 @@ public class ArchiveDownload {
             URL url = null;
 
             final ResolverResolver rr = cmd_line.hasOption(_resolver) ? new ResolverResolver(outdir) : null;
+            final CxOneCliResolver cli = cmd_line.hasOption(_cxonecli) ? new CxOneCliResolver(outdir) : null;
 
-            if (rr != null && cmd_line.hasOption(_filename))
-                System.err.println("WARNING: Output filename is ignored when downloading SCA Resolver.");
+            if ( (cli != null || rr != null) && cmd_line.hasOption(_filename))
+                System.err.println("WARNING: Output filename is ignored when downloading SCA Resolver or CxOne CLI.");
 
             try
             {
                 if (cmd_line.hasOption(_url))
                     url = new URL(cmd_line.getOptionValue(_url));
-                else
+                else if (rr != null)
                     url = rr.getDownloadURL();
+                else
+                    url = cli.getDownloadURL();
             }
             catch (MalformedURLException ex)
             {
@@ -154,6 +160,11 @@ public class ArchiveDownload {
             {
                 stdout_path = rr.getOutputPath();
                 outwriter_factory = () -> rr.getExpander();
+            }
+            else if (cli != null)
+            {
+                stdout_path = cli.getOutputPath();
+                outwriter_factory = () -> cli.getExpander();
             }
             else if (cmd_line.hasOption(_unzip))
             {
@@ -184,11 +195,9 @@ public class ArchiveDownload {
         }
         catch (ParseException pex)
         {
-
             System.err.println("ERROR: " + pex.getMessage());
             showHelp(_all_options);
             System.exit(-1);
-
         }
     }
 }

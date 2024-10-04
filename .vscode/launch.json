@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Remote Debug cxflow-download",
+            "name": "Remote Debug",
             "request": "attach",
             "port": 32768,
             "hostName": "localhost",

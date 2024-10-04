@@ -94,7 +94,8 @@ public class CxFlowDownload {
             if (cmd_line.hasOption("?"))
             {
                 var help = new HelpFormatter();
-                help.printHelp("java -jar cxflow-downloader.jar", "Downloads CxFlow and emits the path to stdout", options, null, true);
+                help.printHelp("java -jar cxflow-downloader.jar", "Downloads the specified or latest version of CxFlow", options, 
+                "At exit, the path to the downloaded jar is emitted on stdout", true);
                 System.exit(0);
             }
 
