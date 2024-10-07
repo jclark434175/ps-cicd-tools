@@ -1,16 +1,8 @@
 package com.checkmarxts.cicd;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.HttpHost;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.core5.http.message.StatusLine;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 import com.checkmarxts.cicd.github.CxFlowUrlResolverFactory;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.InvalidPathException;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;

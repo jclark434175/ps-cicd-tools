@@ -5,8 +5,6 @@ import java.net.MalformedURLException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.AutoCloseable;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import java.net.URISyntaxException;
@@ -15,7 +13,6 @@ import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.HttpException;
-import org.apache.hc.core5.http.ProtocolException;
 import com.checkmarxts.cicd.expanders.IExpandedWriter;
 import com.checkmarxts.cicd.expanders.ExpandException;
 

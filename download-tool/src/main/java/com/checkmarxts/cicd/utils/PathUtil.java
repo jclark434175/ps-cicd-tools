@@ -23,7 +23,7 @@ public class PathUtil {
             throw new InvalidPathException(dirpath.toString(), "Directory " + dirpath + " is not writable.");
         else if (!Files.exists(dirpath))
         {
-            if (perm != null)
+            if (perm != null && !perm.isEmpty())
                 retval = Files.createDirectories(dirpath, PosixFilePermissions.asFileAttribute(perm) ).toAbsolutePath();
             else
                 // Follow OS umask or default permissions.

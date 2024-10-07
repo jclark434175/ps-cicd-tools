@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+export ROOT=$(realpath $(dirname $0))
+[ ! -d "$ROOT/ignore" ] && mkdir $ROOT/ignore
+export OUTROOT=$ROOT/ignore
+
+
+if [ ! -d "$OUTROOT/shunit2-2.1.8" ]
+then
+    wget -qO- https://github.com/kward/shunit2/archive/refs/tags/v2.1.8.tar.gz | tar -xz -C $OUTROOT
+    ln -s $OUTROOT/shunit2-2.1.8 $OUTROOT/shunit
+fi
+
+INPUT_DIR=$(pwd)/input
+OUTPUT_DIR=$(pwd)/output
+
+DOCKER_BUILD_PREFIX="docker build --progress plain --build-arg GROUP_ID=$(id -g) --build-arg USER_ID=$(id -u) $BUILD_COMPAT"
+DOCKER_RUN_PREFIX="docker run --rm -v $INPUT_DIR:/sandbox/input -v $OUTPUT_DIR:/sandbox/output -v $OUTPUT_DIR:/sandbox/scalogs"
+
+set +e
