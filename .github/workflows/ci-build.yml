@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Build
-              run: gradle build
+              run: ./gradlew build
             
             - name: Execute jsonpath-query Smoke Tests
               run: smoke-tests/jsonpath-query-smoke-test.sh
