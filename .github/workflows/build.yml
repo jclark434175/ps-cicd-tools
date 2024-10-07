@@ -34,7 +34,16 @@ jobs:
 
       - name: Execute build
         run: ./gradlew -Ppackage_version=${{ inputs.tag }} build
+      
+      - name: Execute jsonpath-query Smoke Tests
+        run: smoke-tests/jsonpath-query-smoke-test.sh
+      
+      - name: Execute archive-downloader Smoke Tests
+        run: smoke-tests/archive-downloader-smoke-test.sh
 
+      - name: Execute cxflow-downloader Smoke Tests
+        run: smoke-tests/cxflow-downloader-smoke-test.sh
+       
       - name: Copy artifacts
         run: |
             mkdir artifacts
