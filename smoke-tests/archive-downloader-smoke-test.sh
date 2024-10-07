@@ -57,8 +57,7 @@ testDownloadZipWithWrongDecompressFails()
 
 testDownloadWithUnzip()
 {
-    java -jar archive-downloader/build/libs/archive-downloader.jar -u https://github.com/checkmarx-ltd/cx-flow/archive/refs/tags/1.7.05.zip -unzip -o $OUTROOT/tmp
-    ls -la $D
+    java -jar archive-downloader/build/libs/archive-downloader.jar -u https://github.com/checkmarx-ltd/cx-flow/archive/refs/tags/1.7.05.zip -unzip -o $OUTROOT/tmp > /dev/null 2>&1
     assertTrue 0 $?
 }
 
