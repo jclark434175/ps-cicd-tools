@@ -1,12 +1,7 @@
 package com.checkmarxts.cicd.expanders;
 import java.nio.file.Path;
-import java.nio.file.Files;
 import java.io.InputStream;
-import java.io.FileOutputStream;
-import java.util.zip.ZipInputStream;
-import com.checkmarxts.cicd.utils.PathUtil;
 import com.checkmarxts.cicd.utils.PermissionUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 
 

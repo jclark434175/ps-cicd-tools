@@ -4,13 +4,11 @@ import java.nio.file.Path;
 import org.apache.commons.io.IOUtils;
 
 import java.util.Set;
-import java.nio.file.Path;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.attribute.PosixFilePermission;
 import java.io.FileOutputStream;
 import com.checkmarxts.cicd.utils.PathUtil;
-import org.apache.commons.io.IOUtils;
 
 
 public abstract class BaseExpandWriter implements IExpandedWriter {

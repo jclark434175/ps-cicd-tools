@@ -55,8 +55,6 @@ public class CxFlowDownload {
     {
         var destpath = Path.of(outdir.toString(), resolver.getFilename()).toAbsolutePath();
 
-        var x = destpath.toString();
-
         if (!Files.exists(destpath) || (Files.exists(destpath) && !skipIfExists))
             try(var tool = new DownloadTool(resolver.getDownloadUrl()))
             {
