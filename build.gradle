@@ -41,5 +41,6 @@ dependencies {
     implementation project(":cxflow-downloader")
     implementation project(":archive-downloader")
     implementation project(":download-tool")
+    implementation project(":jsonpath-query")
 }
 

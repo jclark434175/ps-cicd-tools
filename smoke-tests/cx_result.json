@@ -1,0 +1,94 @@
+{
+	"TotalIssues": 48,
+	"CriticalIssues": 0,
+	"HighIssues": 26,
+	"MediumIssues": 16,
+	"LowIssues": 6,
+	"InfoIssues": 0,
+	"SastIssues": 17,
+	"KicsIssues": 4,
+	"ScaIssues": 27,
+	"APISecurity": {
+		"api_count": 3,
+		"total_risks_count": 1,
+		"risks": [
+			0,
+			0,
+			0,
+			1
+		],
+		"risk_distribution": [
+			{
+				"origin": "code",
+				"total": 1
+			}
+		],
+		"StatusCode": 0
+	},
+	"RiskStyle": "high",
+	"RiskMsg": "High Risk",
+	"Status": "Completed",
+	"ScanID": "6e508aef-f707-497f-8fd3-2bd9dde6c7d8",
+	"ScanDate": "",
+	"ScanTime": "",
+	"CreatedAt": "2024-10-07, 14:50:06",
+	"ProjectID": "71709665-77a0-4512-aa24-4937df0d45d6",
+	"BaseURI": "https://ast.checkmarx.net/projects/71709665-77a0-4512-aa24-4937df0d45d6/scans?id=6e508aef-f707-497f-8fd3-2bd9dde6c7d8&branch=main",
+	"Tags": {},
+	"ProjectName": "nleach-test/sv-react",
+	"BranchName": "main",
+	"ScanInfoMessage": "",
+	"EnginesEnabled": [
+		"sast",
+		"kics",
+		"sca",
+		"apisec"
+	],
+	"Policies": {
+		"status": "NONE",
+		"breakBuild": false,
+		"policies": null
+	},
+	"EnginesResult": {
+		"apisec": {
+			"Critical": -1,
+			"High": 0,
+			"Medium": 0,
+			"Low": 1,
+			"Info": 0,
+			"StatusCode": 0
+		},
+		"containers": {
+			"Critical": -1,
+			"High": 0,
+			"Medium": 0,
+			"Low": 0,
+			"Info": 0,
+			"StatusCode": -1
+		},
+		"kics": {
+			"Critical": -1,
+			"High": 0,
+			"Medium": 4,
+			"Low": 0,
+			"Info": 0,
+			"StatusCode": 0
+		},
+		"sast": {
+			"Critical": -1,
+			"High": 11,
+			"Medium": 1,
+			"Low": 5,
+			"Info": 0,
+			"StatusCode": 0
+		},
+		"sca": {
+			"Critical": -1,
+			"High": 15,
+			"Medium": 11,
+			"Low": 1,
+			"Info": 0,
+			"StatusCode": 0
+		}
+	}
+}

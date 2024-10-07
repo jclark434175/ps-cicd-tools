@@ -11,7 +11,8 @@
             "port": 32768,
             "hostName": "localhost",
             "sourcePaths": ["${workspaceFolder}/cxflow-download/src/main/java", 
-            "${workspaceFolder}/archive-downloader/src/main/java", "${workspaceFolder}/download-tool/src/main/java"]
+            "${workspaceFolder}/archive-downloader/src/main/java", "${workspaceFolder}/download-tool/src/main/java",
+            "${workspaceFolder}/jsonpath-query/src/main/java"]
         }
     ]
 }

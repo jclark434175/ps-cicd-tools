@@ -1,0 +1,20 @@
+name: Publish a Release
+on: 
+    push:
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Build
+              run: gradle build
+            
+            - name: Execute jsonpath-query Smoke Tests
+              run: smoke-tests/jsonpath-query-smoke-test.sh
+            
+            - name: Execute archive-downloader Smoke Tests
+              run: smoke-tests/archive-downloader-smoke-test.sh
+
+            - name: Execute cxflow-downloader Smoke Tests
+              run: smoke-tests/cxflow-downloader-smoke-test.sh
+    
